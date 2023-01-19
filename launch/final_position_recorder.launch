@@ -1,0 +1,9 @@
+<launch>
+	
+    <rosparam command="load" file="$(find jaco_learning)/config/final_position_recorder.yaml" />
+    
+    <!-- Node for recording the final position of the end-effector on Jaco arm. -->
+	<node name="final_position_recorder" pkg="jaco_learning" type="final_position_recorder.py" output="screen"/>
+
+</launch>
+

@@ -1,0 +1,8 @@
+setup:
+    prefix: 'j2s7s300_driver'
+    model_filename: "jaco_dynamics"
+    object_centers: {'HUMAN_CENTER': [-0.6,-0.55,0.0], 'LAPTOP_CENTER': [-0.7929,-0.1,0.0]}
+    save_dir: "/data/final_position/"
+
+
+
