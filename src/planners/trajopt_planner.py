@@ -114,6 +114,8 @@ class TrajoptPlanner(object):
 		"""
 
 		# --- Initialization --- #
+		start[2] += math.pi
+		goal[2] += math.pi
 		if len(start) < 10:
 			aug_start = np.append(start.reshape(7), np.array([0,0,0]))
 		self.environment.robot.SetDOFValues(aug_start)
@@ -196,7 +198,9 @@ class TrajoptPlanner(object):
 			prob.AddConstraint(self.environment.table_constraint, [(t,j) for j in range(7)], "INEQ", "up%i"%t)
 
 		result = trajoptpy.OptimizeProblem(prob)
-		return result.GetTraj()
+		traj = result.GetTraj()
+		traj[:,2] -= math.pi
+		return traj
 
 	def replan(self, start, goal, goal_pose, weights, T, timestep, seed=None):
 		"""

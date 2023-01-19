@@ -80,7 +80,7 @@ class PathFollower(object):
 		self.timestep = rospy.get_param("setup/timestep")
 		self.feat_list = rospy.get_param("setup/feat_list")
 		self.weights = rospy.get_param("setup/feat_weights")
-		    
+
 		# Openrave parameters for the environment.
 		model_filename = rospy.get_param("setup/model_filename")
 		object_centers = rospy.get_param("setup/object_centers")
@@ -150,6 +150,11 @@ class PathFollower(object):
 
 		# Convert to radians.
 		self.curr_pos = self.curr_pos*(math.pi/180.0)
+		
+		# Update Openrave visualization
+		waypt = np.append(self.curr_pos.reshape(7), np.array([0,0,0]))
+		waypt[2] += np.pi
+		self.environment.robot.SetDOFValues(waypt)
 
 		# Update cmd from PID based on current position.
 		self.cmd = self.controller.get_command(self.curr_pos)
